@@ -51,10 +51,10 @@ jobs:
         run: |
           pwd
           cat deployment.yml
-          sed -i "s|image: .*|image: sireeshahub1802/spring:v1|g" deployment.yml
+          sed -i "s|image: .*|image: sireeshahub1802/spring:v1|g" spring-boot-app-manifests/deployment.yml
           cat deployment.yml
           kubectl get nodes
-          kubectl apply -f deployment.yml
-          kubectl apply -f service.yml
+          kubectl apply -f spring-boot-app-manifests/deployment.yml
+          kubectl apply -f spring-boot-app-manifests/service.yml
           kubectl get pods -A
           kubectl get svc

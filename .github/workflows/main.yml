@@ -42,3 +42,19 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
+          
+      - name: Configure EKS Access
+        run: |
+          aws eks update-kubeconfig --name spring --region us-east-1
+
+      - name: Deploy to EKS
+        run: |
+          pwd
+          cat deployment.yml
+          sed -i "s|image: .*|image: sireeshahub1802/spring:v1|g" deployment.yml
+          cat deployment.yml
+          kubectl get nodes
+          kubectl apply -f deployment.yml
+          kubectl apply -f service.yml
+          kubectl get pods -A
+          kubectl get svc
